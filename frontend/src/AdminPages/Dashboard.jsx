@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import image from "../assets/img/image.png"
+import Image from "../assets/img/Image.png"
 import { useDispatch, useSelector } from "react-redux"
 import { AiFillProduct } from "react-icons/ai";
 import { FaTruck } from "react-icons/fa";
@@ -51,7 +51,7 @@ function Dashboard() {
       <h2 className='text-lg my-2 uppercase text-shadow-2xs font-semibold'>Dasboard Analysis</h2>
 
       <div className='w-full flex flex-col justify-center items-center  p-2 bg-gray-100'>
-        <img src={image} alt="" className='size-25 rounded-full' />
+        <img src={Image} alt="" className='size-25 rounded-full' />
         <h2 className='text-2xl text-shadow-2xs font-semibold uppercase'>{user?.name}</h2>
         <span className='text-shadow-2xs'>{user?.email}</span>
         <span className='text-red-500 font-semibold'>admin</span>
