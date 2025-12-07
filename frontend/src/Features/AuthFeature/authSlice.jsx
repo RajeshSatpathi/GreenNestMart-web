@@ -3,14 +3,14 @@ import axios from "axios";
 
 const APIBase_url = "https://green-nest-mart-web-backend.vercel.app"
 
-const API_URL = "http://localhost:8000";
+
 
 //registration api call 
 export const UserRegistrationAPI = createAsyncThunk(
     "auth/registration",
     async (credentials, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${API_URL}/api/auth/registration`,
+            const response = await axios.post(`${APIBase_url}/api/auth/registration`,
                 credentials, {
                 withCredentials: true,
             });
@@ -26,7 +26,7 @@ export const UserLoginAPI = createAsyncThunk(
     "auth/login",
     async (credentials, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${API_URL}/api/auth/login`,
+            const response = await axios.post(`${APIBase_url}/api/auth/login`,
                 credentials, {
                 withCredentials: true,
             });
@@ -43,7 +43,7 @@ export const checkAuthAPI = createAsyncThunk(
     "auth/checkAuth",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/api/auth/checkAuth`,
+            const response = await axios.get(`${APIBase_url}/api/auth/checkAuth`,
                 {
                     withCredentials: true,
                 });

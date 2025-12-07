@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:8000";
+
+const APIBase_url = "https://green-nest-mart-web-backend.vercel.app"
 // add  product api call 
 
 export const addProductAPI = createAsyncThunk(
@@ -9,7 +10,7 @@ export const addProductAPI = createAsyncThunk(
     async (productData, { rejectWithValue }) => {
         try {
             const res = await axios.post(
-                `${API_URL}/api/product/addproduct`,
+                `${APIBase_url}/api/product/addproduct`,
                 productData,
                 {
                     headers: {
@@ -32,7 +33,7 @@ export const GetProductAPI = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                `${API_URL}/api/product/`,
+                `${APIBase_url}/api/product/`,
                 {
                     withCredentials: true
                 }
