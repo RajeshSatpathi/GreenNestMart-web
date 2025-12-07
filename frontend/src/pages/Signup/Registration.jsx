@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./Signup.style.css"
+import "./signup.style.css"
 import Google from "../../assets/img/Google.png"
 import { Link, useNavigate } from "react-router-dom"
 import Blog from '../../component/Home/Blog'
