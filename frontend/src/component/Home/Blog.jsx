@@ -73,7 +73,7 @@ function Blog() {
         <div className=' mx-5 mt-10  border-gray-200 rounded p-5'>
             <h2 className='text-xl font-semibold'> Latest <span className='text-green-600'>
                 News</span> </h2><br />
-            <div className="slider-container max-sm:w-[1000px]">
+            <div className="slider-container ">
                 <Slider {...settings}>
                     {
                         blogData.map((item) => (

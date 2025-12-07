@@ -40,18 +40,18 @@ function Homepage() {
     const [selectedCategory ,setselectedCategory] = useState(null);
 
   return (
-    <div>
-      <div>
+ 
+      <div className="w-full px-2 md:px-2 ">
         <HeroSection/>
         <Category category={category}  setselectedCategory={setselectedCategory}/>
         <NewProduct selectedCategory={selectedCategory}/>
         <FreshProduct />
         <Services/>
-        <Blog/>
+        {/* <Blog/> */}
         <DiscoverItem/>
         <Newsletter/>
       </div>
-    </div>
+   
   )
 }
 
