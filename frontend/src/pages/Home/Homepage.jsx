@@ -9,7 +9,7 @@ import NewProduct from '../../component/Home/NewProduct'
 import DiscoverItem from '../../component/Home/DiscoverItem'
 import fruiticon from "../../assets/img/fruiticon.png"
 import bakeryicons from "../../assets/img/bakeryicons.png"
-import Vagitableicons from "../../assets/img/Vagitableicons.png"
+import vagitableicons from "../../assets/img/Vagitableicons.png"
 import dairyicon from "../../assets/img/dairyicon.png"
 import spicesicon from "../../assets/img/spicesicon.png"
 
@@ -25,7 +25,7 @@ function Homepage() {
         },
            {
             name:"Vagitables",
-            icon:Vagitableicons
+            icon:vagitableicons
         },
            {
             name:"Dairy & Milk",
