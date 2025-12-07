@@ -1,0 +1,21 @@
+/* //tailwind css setup */
+ 
+
+@import "tailwindcss";
+
+@layer components{
+    .btn-price{
+        @apply border border-gray-300 text-sm py-1 px-2 rounded-2xl w-16 cursor-pointer  
+    }
+    .common-input{
+        @apply border border-gray-400 p-2 outline-none md:w-[40%] w-full mr-2 my-2 rounded
+    }
+    .btn-cart{
+        @apply border border-gray-200 p-1.5 w-30 cursor-pointer
+        hover:bg-gray-900 hover:text-white
+         bg-white text-sm rounded-3xl
+    }
+    .product-img{
+        @apply  transform transition-transform duration-300 hover:scale-120
+    }
+} 

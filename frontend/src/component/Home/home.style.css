@@ -1,0 +1,77 @@
+.banner2 {
+    width: 100%;
+    height: 200px;
+    background-image: url("../../assets/img/banner1.jpg");
+    background-size: cover;
+    border-radius: 5px;
+
+}
+
+.banner3 {
+    width: 100%;
+    height: 200px;
+    background-image: url("../../assets/img/banner4.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    margin: 15px 0px;
+
+}
+
+.hero1 {
+    width: 100%;
+    height: 415px;
+    background-image: url("../../assets/img/hero1.jpg");
+    background-size: cover;
+    border-radius: 5px;
+ 
+
+}
+.hero2 {
+    width: 100%;
+    height: 415px;
+    background-image: url("../../assets/img/hero2.jpg");
+    background-size: cover;
+    border-radius: 5px;
+
+
+}
+.hero3 {
+    width: 100%;
+    height: 415px;
+    background-image: url("../../assets/img/hero3.jpg");
+    background-size: cover;
+    border-radius: 5px;
+
+
+}
+/* home.style.css */
+.slick-slide > div {
+  margin: 0 12px;
+
+}
+.FreshProductContainer{
+
+    width: 100%;
+    height: 60vh;
+    background-image: url("../../assets/img/chocolatebanner.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+}
+.newsletter {
+   
+    height: 200px;
+    background-image: url("../../assets/img/regBanner.jpg");
+    background-size: cover;
+    border-radius: 5px;
+
+}
+.glass-card {
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.041);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4.9px);
+-webkit-backdrop-filter: blur(4.9px);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}

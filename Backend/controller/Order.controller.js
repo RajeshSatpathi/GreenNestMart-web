@@ -1,0 +1,132 @@
+import { Orders } from "../models/Order.model.js";
+import { Product } from "../models/Product.model.js"
+import { Address } from "../models/Address.model.js";
+import { Cart } from "../models/Cart.model.js";
+
+
+//order placed api code 
+export const PlacedOrders = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { address, paymentType } = req.body;
+        if (!address) {
+            return res.status(400).json({
+                success: false,
+                message: "Delivery Address Is Required"
+            })
+        }
+        //save the address into address model
+        const addressData = await Address.create({
+            userId: userId,
+            city:address.city, 
+            state:address.state,
+            country:address.country,
+            pincode:address.pincode,
+            mobno:address.mobno
+        })
+
+        let cart = await Cart.findOne({ user: userId }).populate("items.product");
+        if (!cart || cart.items.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Your Cart Is Empty",
+            });
+        }
+        //calculating totalamount 
+
+        const totalAmount = cart?.items?.
+            reduce((acc, item) => acc + item?.product?.currentprice * item?.quantity, 0);
+
+        // create place order 
+        const newOrderPlace = await Orders.create({
+            userId: userId,
+            addressId: addressData._id,
+            items: cart?.items.map((item) => ({
+                product: item.product._id,
+                quantity: item.quantity
+            })),
+            totalAmount,
+            paymentType
+        })
+        // Clear Cart
+        await Cart.findOneAndUpdate(
+            { user: userId },
+            { items: [] },
+            { new: true }
+        );
+
+        return res.status(201).json({
+            success: true,
+            message: "Order Placed Successfully",
+            order: newOrderPlace,
+        });
+
+    } catch (error) {
+        console.log("error", error);
+        return res.status(500).json({
+            success: false,
+            message: "server side error in orderAPI"
+        })
+    }
+}
+
+//get order api for all order 
+export const getOrdersAPI = async (req, res) => {
+    try {
+        const orders = await Orders.find()
+            .populate("addressId").
+            populate("items.product")
+            .populate("userId")
+            ;
+        if (!orders || orders.length == 0) {
+            return res.status(400).json({
+                success: false,
+                message: "No Orders Found",
+            });
+        }
+        return res.status(201).json({
+            success: true,
+            message: "Order succesully Get",
+            orders: orders
+        });
+
+    } catch (error) {
+        console.log("error", error);
+        return res.status(500).json({
+            success: false,
+            message: "server side error in GetorderAPI"
+        })
+    }
+}
+
+// get order for a particular user
+export const getOrdersByIdAPI = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const orders = await Orders.find({ userId })
+            .populate("addressId").
+            populate("items.product")
+            .populate("userId")
+            ;
+        if (!orders || orders.length == 0) {
+            return res.status(400).json({
+                success: false,
+                message: "No Orders Found",
+            });
+        }
+        return res.status(201).json({
+            success: true,
+            message: "Order succesully Get",
+            orders: orders
+        });
+
+    } catch (error) {
+        console.log("error", error);
+        return res.status(500).json({
+            success: false,
+            message: "server side error in GetorderAPI"
+        })
+    }
+}
+
+// update order status 
