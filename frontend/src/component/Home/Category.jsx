@@ -1,6 +1,8 @@
 import React from 'react'
 import "./home.style.css"
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Category({category,setselectedCategory}) {
 
