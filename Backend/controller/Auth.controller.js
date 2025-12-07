@@ -25,10 +25,11 @@ export const registrationAPI = async (req, res) => {
         const token = generateToken(newUser._id);
         res.cookie("token", token, {
             httpOnly: true,
-            sameSite: "strict",
+            secure: true,
+            sameSite: "none",
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
-        res.status(201).json({success:true, message: "User Registration successfull", user: newUser });
+        res.status(201).json({ success: true, message: "User Registration successfull", user: newUser });
     } catch (error) {
         res.status(500).json({ error: error.message, message: "Server error Registration faild" });
     }
@@ -55,14 +56,14 @@ export const loginAPI = async (req, res) => {
         const token = generateToken(user._id);
         res.cookie("token", token, {
             httpOnly: true,
-            // secure: process.env.NODE_ENV === "production",
+            secure: true,
             sameSite: "none",
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
         //response to front end 
         return res.status(201).json({
             success: true,
-            message:"Login Succesfull",
+            message: "Login Succesfull",
             user: {
                 id: user._id,
                 name: user.name,
@@ -74,8 +75,8 @@ export const loginAPI = async (req, res) => {
     } catch (error) {
         console.error("login error:", error);
         return res.status(500).json({
-             message: "Internal server error" 
-            });
+            message: "Internal server error"
+        });
     }
 }
 
@@ -84,6 +85,7 @@ export const logoutAPI = async (req, res) => {
     try {
         res.cookie("token", "", {
             httpOnly: true,
+             secure: true,
             sameSite: "none",
             expires: new Date(0),  // Immediately expire the cookie
         });
