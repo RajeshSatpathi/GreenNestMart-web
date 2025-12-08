@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
-import { GetAllOrdersAPICALL } from '../Features/OrdersFeature/OrderSlice';
+import { changeOrderStatusByAdmin, GetAllOrdersAPICALL } from '../Features/OrdersFeature/OrderSlice';
 
 function OrderProductView() {
     const { orders } = useSelector((state) => state.orders);
@@ -22,9 +22,9 @@ function OrderProductView() {
     }, [orders, id]);
 
     //change order status code 
-    const [orderStatus,setOrderStatus] = useState("PENDING");
-    const changeOrderStatus = ()=>{
-        dispatch(changeOrderStatus({orderStatus,id})).then((data)=>alert("order Status Change"))
+    const [orderStatus, setOrderStatus] = useState("PENDING");
+    const changeOrderStatus = () => {
+        dispatch(changeOrderStatusByAdmin({ orderStatus, id })).then((data) => alert("order Status Change"))
     }
 
     return (
@@ -33,18 +33,18 @@ function OrderProductView() {
                 <h2 className='text-xl font-semibold text-shadow-2xs my-2'>Ordered Product Details</h2>
                 <h2 className='text-md font-semibold text-shadow-2xs my-2'>Ordered Id :- {id}</h2><br />
                 <div>
-                    <select name="" id="" className='border p-1.5 border-gray-300 mx-2' 
-                    value={orderStatus}
-                    onChange={(e)=>setOrderStatus(e.target.value)}
+                    <select name="" id="" className='border p-1.5 border-gray-300 mx-2'
+                        value={orderStatus}
+                        onChange={(e) => setOrderStatus(e.target.value)}
                     >
                         <option value="PENDING">PENDING</option>
                         <option value="PACKAGING">PACKAGING</option>
                         <option value="OUT FOR DELIVERY">OUT FOR DELIVERY</option>
 
                     </select>
-                    <button 
-                    onClick={changeOrderStatus}
-                    className='bg-black text-white p-1.5 cursor-pointer'>Change Order Status </button>
+                    <button
+                        onClick={changeOrderStatus}
+                        className='bg-black text-white p-1.5 cursor-pointer'>Change Order Status </button>
                 </div>
             </div>
 
