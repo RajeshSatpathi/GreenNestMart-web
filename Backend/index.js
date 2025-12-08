@@ -11,7 +11,7 @@ dotenv.config();
 
 // app use 
 const app = express();
-  DatabaseConnection()
+DatabaseConnection()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -21,16 +21,19 @@ app.use(cors({
 }));
 
 //routes 
-app.use("/api/auth",AppRoutes);
-app.use("/api/product",ProductRoutes);
-app.use("/api/cart",CartRoutes);
-app.use("/api/orders",OrderRoutes);
+app.use("/api/auth", AppRoutes);
+app.use("/api/product", ProductRoutes);
+app.use("/api/cart", CartRoutes);
+app.use("/api/orders", OrderRoutes);
 
 
 
 
 // port and connection 
 const PORT = process.env.PORT || 3000
-app.listen(PORT,async ()=>{
-    console.log("Server running 8000")
+app.listen(PORT, async () => {
+  console.log("Server running 8000")
 })
+
+  
+   
