@@ -9,10 +9,11 @@ function OrderProductView() {
     const [filerData, setFilterData] = useState(null);
 
     const { id } = useParams()
+
     useEffect(() => {
         dispatch(GetAllOrdersAPICALL())
-
     }, [dispatch])
+
     useEffect(() => {
         if (orders?.length > 0) {
             const data = orders.find((order) => order._id === id);
@@ -23,8 +24,10 @@ function OrderProductView() {
 
     //change order status code 
     const [orderStatus, setOrderStatus] = useState("PENDING");
+
     const changeOrderStatus = () => {
-        dispatch(changeOrderStatusByAdmin({ orderStatus, id })).then((data) => alert("order Status Change"))
+        dispatch(changeOrderStatusByAdmin({ orderStatus, id })).
+        then((data) => alert("order Status Change"))
     }
 
     return (
@@ -52,7 +55,7 @@ function OrderProductView() {
             {
                 filerData?.items?.map((item) => (
                     <div className='w-full shadow-2xs my-2 
-             flex  gap-5 items-center p-4'>
+                    flex  gap-5 items-center p-4'>
                         <div className='flex'>
                             {
                                 item.product.images.map((img) => (
@@ -60,7 +63,6 @@ function OrderProductView() {
                                 ))
                             }
                         </div>
-
                         <div className='text-center w-full flex justify-evenly'>
                             <span className='font-semibold'>{item.product.title}</span><br />
                             <span className='text-sm text-gray-500'>category -{item.product.category}</span><br />

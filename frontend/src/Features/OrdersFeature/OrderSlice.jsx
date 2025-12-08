@@ -60,7 +60,7 @@ export const changeOrderStatusByAdmin = createAsyncThunk(
     "orders/changeOrderStatus",
     async ({ status,id }, { rejectWithValue }) => {
         try {
-            const response = await axios.put(`${APIBase_url}/api/orders/changeOrderStatus${id}`,
+            const response = await axios.put(`${APIBase_url}/api/orders/changeOrderStatus/${id}`,
                 { status }, {
                 withCredentials: true,
             });
