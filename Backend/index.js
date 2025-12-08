@@ -19,7 +19,9 @@ app.use(cors({
     origin: "https://green-nest-mart-web-5pup.vercel.app",
     credentials: true
 }));
-
+app.get("/",(req,res)=>{
+  res.send("Server running...")
+})
 //routes 
 app.use("/api/auth", AppRoutes);
 app.use("/api/product", ProductRoutes);
