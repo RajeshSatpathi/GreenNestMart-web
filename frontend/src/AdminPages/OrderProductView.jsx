@@ -6,7 +6,7 @@ import { GetAllOrdersAPICALL } from '../Features/OrdersFeature/OrderSlice';
 function OrderProductView() {
     const { orders } = useSelector((state) => state.orders);
     const dispatch = useDispatch()
-    const [filerData, setFilterData] = useState([]);
+    const [filerData, setFilterData] = useState(null);
 
     const { id } = useParams()
     useEffect(() => {
