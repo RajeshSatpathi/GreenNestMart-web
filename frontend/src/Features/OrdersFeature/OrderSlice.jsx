@@ -56,6 +56,20 @@ export const GetOrderByUserIdAPICALL = createAsyncThunk(
         }
     }
 )
+export const changeOrderStatusByAdmin = createAsyncThunk(
+    "orders/changeOrderStatus",
+    async ({ status,id }, { rejectWithValue }) => {
+        try {
+            const response = await axios.put(`${APIBase_url}/api/orders/changeOrderStatus${id}`,
+                { status }, {
+                withCredentials: true,
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Something went wrong");
+        }
+    }
+)
 
 
 //initialState::::::::
@@ -108,6 +122,20 @@ const OrderSlice = createSlice({
                 state.orders = action.payload.orders; // store only cart
             })
             .addCase(GetOrderByUserIdAPICALL.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
+        //update order status
+        builder
+            .addCase(changeOrderStatusByAdmin.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(changeOrderStatusByAdmin.fulfilled, (state, action) => {
+                state.loading = false;
+                state.orders = action.payload.orders; // store only cart
+            })
+            .addCase(changeOrderStatusByAdmin.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });

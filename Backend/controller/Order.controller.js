@@ -130,3 +130,37 @@ export const getOrdersByIdAPI = async (req, res) => {
 }
 
 // update order status 
+export const AdminUpdateOrderStatusAPI = async (req, res) => {
+    try {
+        const {id} =  req.params;
+        const {status} = req.body;
+
+        const updatedOrder  = await Orders.findOneAndUpdate(
+            {_id:id},
+            {status:status},
+            {new:true}
+        )
+           .populate("addressId").
+            populate("items.product")
+            .populate("userId")
+            ;
+        if (!updatedOrder || updatedOrder.length == 0) {
+            return res.status(400).json({
+                success: false,
+                message: "No Orders Found",
+            });
+        }
+        return res.status(201).json({
+            success: true,
+            message: "Order updated succesully ",
+            orders: updatedOrder
+        });
+
+    } catch (error) {
+        console.log("error", error);
+        return res.status(500).json({
+            success: false,
+            message: "server side error in UpdateorderAPI"
+        })
+    }
+}

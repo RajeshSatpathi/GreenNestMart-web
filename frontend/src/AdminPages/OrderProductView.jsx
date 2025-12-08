@@ -20,19 +20,31 @@ function OrderProductView() {
             console.log(data)
         }
     }, [orders, id]);
+
+    //change order status code 
+    const [orderStatus,setOrderStatus] = useState("PENDING");
+    const changeOrderStatus = ()=>{
+        dispatch(changeOrderStatus({orderStatus,id})).then((data)=>alert("order Status Change"))
+    }
+
     return (
         <div className='my-2 container mx-auto'>
             <div className='flex justify-between'>
                 <h2 className='text-xl font-semibold text-shadow-2xs my-2'>Ordered Product Details</h2>
                 <h2 className='text-md font-semibold text-shadow-2xs my-2'>Ordered Id :- {id}</h2><br />
                 <div>
-                    <select name="" id="" className='border p-1.5 border-gray-300 mx-2'>
-                        <option value="">PENDING</option>
-                        <option value="">PACKAGING</option>
-                        <option value="">OUT FOR DELIVERY</option>
+                    <select name="" id="" className='border p-1.5 border-gray-300 mx-2' 
+                    value={orderStatus}
+                    onChange={(e)=>setOrderStatus(e.target.value)}
+                    >
+                        <option value="PENDING">PENDING</option>
+                        <option value="PACKAGING">PACKAGING</option>
+                        <option value="OUT FOR DELIVERY">OUT FOR DELIVERY</option>
 
                     </select>
-                    <button className='bg-black text-white p-1.5'>Change Order Status </button>
+                    <button 
+                    onClick={changeOrderStatus}
+                    className='bg-black text-white p-1.5 cursor-pointer'>Change Order Status </button>
                 </div>
             </div>
 
