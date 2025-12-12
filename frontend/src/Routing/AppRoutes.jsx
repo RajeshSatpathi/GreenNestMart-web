@@ -20,6 +20,8 @@ import Checkout from '../pages/Checkout/Checkout'
 import AdminOrder from '../AdminPages/AdminOrder'
 import OrderProductView from '../AdminPages/OrderProductView'
 import Myorder from '../pages/Myorders/Myorder'
+import Success from '../StripMessage/Success'
+import Cancel from '../StripMessage/Cancel'
 function AppRoutes() {
   const { isAuthentication, user, loading } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
@@ -60,6 +62,10 @@ function AppRoutes() {
           <Route path="/product/details/:id" element={<ViewProduct />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/myorder" element={<Myorder />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/cancel" element={<Cancel />} />
+
+
 
         </Route>
 

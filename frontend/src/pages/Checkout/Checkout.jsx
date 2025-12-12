@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import paymentGateway from "../../assets/img/paymentGateway.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { GetCartAPICALL } from '../../Features/CartFeatures/CartSlice';
-import { PlaceOrderAPICALL } from '../../Features/OrdersFeature/OrderSlice';
+import { PlaceOrderAPICALL, PlaceOrderByStripeAPICALL } from '../../Features/OrdersFeature/OrderSlice';
 function Checkout() {
   const { cart } = useSelector((state) => state.cart)
   const dispatch = useDispatch();
@@ -23,8 +23,8 @@ function Checkout() {
     city: "",
     state: "",
     country: "",
-    pincode:"",
-    mobno:""
+    pincode: "",
+    mobno: ""
   })
   const [paymentType, setPaymentType] = useState("COD");
   const handleChange = (e) => {
@@ -36,13 +36,24 @@ function Checkout() {
       }
     ))
   }
-  const placedOrder = () =>{
-     const finalAddress = {
-    ...address,
-    mobno: Number(address.mobno),
-    pincode: Number(address.pincode),
-  };
-    dispatch(PlaceOrderAPICALL({address:finalAddress,paymentType})).then((data)=>alert("order Placed Succesfully"))
+  const placedOrder = () => {
+    const finalAddress = {
+      ...address,
+      mobno: Number(address.mobno),
+      pincode: Number(address.pincode),
+    };
+    if (paymentType === "COD") {
+      dispatch(PlaceOrderAPICALL({ address: finalAddress, paymentType })).
+        then((data) => alert("order Placed Succesfully using COD"))
+    } else {
+      dispatch(PlaceOrderByStripeAPICALL({ address: finalAddress, paymentType })).
+        then((data) => {
+          if (data.payload?.success) {
+            window.location.replace(data.payload.url)
+          }
+          console.log(data)
+        })
+    }
   }
   return (
     <div>

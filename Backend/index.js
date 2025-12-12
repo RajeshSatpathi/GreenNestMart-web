@@ -11,16 +11,17 @@ dotenv.config();
 
 // app use 
 const app = express();
-DatabaseConnection()
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(cors({
-    origin: "https://green-nest-mart-web-5pup.vercel.app",
-    credentials: true
+  origin: "http://localhost:5173",
+  credentials: true
 }));
-app.get("/",(req,res)=>{
+
+app.get("/", (req, res) => {
   res.send("Server running...")
 })
 //routes 
@@ -36,7 +37,7 @@ app.use("/api/orders", OrderRoutes);
 const PORT = process.env.PORT || 3000
 app.listen(PORT, async () => {
   console.log("Server running 8000")
+  DatabaseConnection();
 })
 
-  
-   
+

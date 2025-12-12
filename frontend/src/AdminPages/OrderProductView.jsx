@@ -18,16 +18,16 @@ function OrderProductView() {
         if (orders?.length > 0) {
             const data = orders.find((order) => order._id === id);
             setFilterData(data);
-            console.log(data)
+            // console.log(data)
         }
     }, [orders, id]);
 
     //change order status code 
-    const [orderStatus, setOrderStatus] = useState("PENDING");
+    const [status, setstatus] = useState("PENDING");
 
     const changeOrderStatus = () => {
-        dispatch(changeOrderStatusByAdmin({ orderStatus, id })).
-        then((data) => alert("order Status Change"))
+        dispatch(changeOrderStatusByAdmin({ status, id })).
+        then((data) => console.log(data))
     }
 
     return (
@@ -37,8 +37,8 @@ function OrderProductView() {
                 <h2 className='text-md font-semibold text-shadow-2xs my-2'>Ordered Id :- {id}</h2><br />
                 <div>
                     <select name="" id="" className='border p-1.5 border-gray-300 mx-2'
-                        value={orderStatus}
-                        onChange={(e) => setOrderStatus(e.target.value)}
+                        value={status}
+                        onChange={(e) => setstatus(e.target.value)}
                     >
                         <option value="PENDING">PENDING</option>
                         <option value="PACKAGING">PACKAGING</option>
@@ -50,7 +50,6 @@ function OrderProductView() {
                         className='bg-black text-white p-1.5 cursor-pointer'>Change Order Status </button>
                 </div>
             </div>
-
 
             {
                 filerData?.items?.map((item) => (
@@ -69,7 +68,6 @@ function OrderProductView() {
                             <span className='text-sm text-gray-500'>Net Weight:- {item.product.netweight}</span>
                             <div>Quantity :-{item.quantity}</div>
                         </div>
-
 
                     </div>
                 ))

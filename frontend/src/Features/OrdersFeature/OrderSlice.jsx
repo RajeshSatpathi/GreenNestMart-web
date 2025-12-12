@@ -1,14 +1,29 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const APIBase_url = "https://green-nest-mart-web-backend.vercel.app"
-// add  product api call 
 
+const APIBase_url = "http://localhost:8000"
+// add  product api call 
 export const PlaceOrderAPICALL = createAsyncThunk(
     "order/placeorders",
     async ({ address, paymentType }, { rejectWithValue }) => {
         try {
             const response = await axios.post(`${APIBase_url}/api/orders/placeorders`,
+                { address, paymentType }, {
+                withCredentials: true,
+            });
+            return response.data; // contains token, user, etc.
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Something went wrong");
+        }
+    }
+);
+
+export const PlaceOrderByStripeAPICALL = createAsyncThunk(
+    "order/placeordersByStripe",
+    async ({ address, paymentType }, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${APIBase_url}/api/orders/placeordersByStripe`,
                 { address, paymentType }, {
                 withCredentials: true,
             });
@@ -58,7 +73,7 @@ export const GetOrderByUserIdAPICALL = createAsyncThunk(
 )
 export const changeOrderStatusByAdmin = createAsyncThunk(
     "orders/changeOrderStatus",
-    async ({ status,id }, { rejectWithValue }) => {
+    async ({ status, id }, { rejectWithValue }) => {
         try {
             const response = await axios.put(`${APIBase_url}/api/orders/changeOrderStatus/${id}`,
                 { status }, {
@@ -76,7 +91,9 @@ export const changeOrderStatusByAdmin = createAsyncThunk(
 const initialState = {
     orders: [],
     loading: false,
-    error: false
+    error: false,
+    stripeUrl: null,   // store Stripe checkout URL
+    orderId: null,     // store order ID
 };
 const OrderSlice = createSlice({
     name: "orders",
@@ -94,6 +111,21 @@ const OrderSlice = createSlice({
                 state.orders = action.payload.orders; // store only cart
             })
             .addCase(PlaceOrderAPICALL.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
+        // place order case by Stripe PaymentGate way
+        builder
+            .addCase(PlaceOrderByStripeAPICALL.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(PlaceOrderByStripeAPICALL.fulfilled, (state, action) => {
+                state.loading = false;
+                state.orderId = action.payload.orderId;     // save order ID
+                state.stripeUrl = action.payload.url;       // save Stripe checkout URL
+            })
+            .addCase(PlaceOrderByStripeAPICALL.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
@@ -125,7 +157,7 @@ const OrderSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             });
-        //update order status
+        //update order status by admin
         builder
             .addCase(changeOrderStatusByAdmin.pending, (state) => {
                 state.loading = true;

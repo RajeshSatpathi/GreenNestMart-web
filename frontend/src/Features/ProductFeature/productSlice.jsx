@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-const APIBase_url = "https://green-nest-mart-web-backend.vercel.app"
+const APIBase_url = "http://localhost:8000"
 // add  product api call 
 
 export const addProductAPI = createAsyncThunk(
